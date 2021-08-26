@@ -11,14 +11,12 @@ const convert =(K) =>{
 
 // make the website link work 
 
-const Link='https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}'
+const Link=`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=${part}&appid=${API_KEY}`
 
 //helper function to convert from K to F 
 let convertKtoF =(K) =>{
     return Math.floor (((K - 273.15) *9 ) / 5)+ 32
 }
-
-
 
 //initialize the function to get wearthing using axios 
 
@@ -28,9 +26,22 @@ let getApiInfo = () => {
         console.dir(res)
         let data = res.data
         console.log(data.hourly)
+        console.log(convertKtoF(data.hourly[0].temp))
+        return data
     })
     .catch(err => {
-        console.error('404 with fetching info: ${err}')
+        console.error(`404 with fetching info: ${err}`)
     })
 }
-console.log(convertKtoF(305.372))
+ 
+//let apiResponse= getApiInfo()
+
+let inputHourlyTemp = () =>{
+    let apiResponse = getApiInfo
+    let cuttrent = convertKtoF(apiResponse.cuttrent)
+    console.log(cuttrent)
+}
+
+getApiInfo()
+
+//console.log(convertKtoF(305.372))
